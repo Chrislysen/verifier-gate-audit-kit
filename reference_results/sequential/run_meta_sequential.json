@@ -1,0 +1,14 @@
+{
+ "protocol_sha256": "c2f92870aa39a3a63b401d6175bd8abee85eaf58f4da864eb265b163d56710ee",
+ "base_protocol_sha256": "fd1f05b7dc3aadd2954c5101db55f07d0bdb50b47cf2d5de55baf30062209876",
+ "sequential_sha256": "e51fa3944e5b551f1e08a399aa6a9ec8e21b08fb6917730cea7110444eefcbbc",
+ "strict_sha256": "37240b412c46f65913efca0a0cd254c40cc5c271ac365130b37dd9160911133a",
+ "sequential_contract": "paper236-sequential-gate-1.0",
+ "strict_contract": "paper236-strict-gate-1.0",
+ "streams": 10000,
+ "dry_run": false,
+ "python": "3.14.2",
+ "platform": "Windows-11-10.0.26300-SP0",
+ "started": "2026-11-15T21:55:02+0100",
+ "seconds": 112.2
+}

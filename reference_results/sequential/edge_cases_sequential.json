@@ -1,0 +1,171 @@
+{
+ "cases": [
+  {
+   "case": "Q01_budget7_symmetric",
+   "expect": "UNATTAINABLE",
+   "expect_n_read": 0,
+   "status": "UNATTAINABLE",
+   "n_read": 0,
+   "e_value": null,
+   "reason": "a budget of 7 can reach at most E=17.09 < 1/alpha=20; no instance read",
+   "ok": true
+  },
+  {
+   "case": "Q02_top_x8_budget8",
+   "expect": "CONFIRMED",
+   "expect_n_read": 8,
+   "status": "CONFIRMED",
+   "n_read": 8,
+   "e_value": 25.62890625,
+   "reason": "E=25.63 >= 1/alpha=20 after 8 instances",
+   "ok": true
+  },
+  {
+   "case": "Q03_stops_before_unread_tail",
+   "expect": "CONFIRMED",
+   "expect_n_read": 8,
+   "status": "CONFIRMED",
+   "n_read": 8,
+   "e_value": 25.62890625,
+   "reason": "E=25.63 >= 1/alpha=20 after 8 instances",
+   "ok": true
+  },
+  {
+   "case": "Q04_failure_at_2",
+   "expect": "INCOMPLETE",
+   "expect_n_read": 2,
+   "status": "INCOMPLETE",
+   "n_read": 2,
+   "e_value": 1.25,
+   "reason": "observation 2 failed; no decision on a partial stream",
+   "ok": true
+  },
+  {
+   "case": "Q05_outside_support_at_2",
+   "expect": "INVALID_INPUT",
+   "expect_n_read": 2,
+   "status": "INVALID_INPUT",
+   "n_read": 2,
+   "e_value": 1.25,
+   "reason": "value 2.0 at 2 outside the declared support [-1.0, 1.0]",
+   "ok": true
+  },
+  {
+   "case": "Q06_nan_first",
+   "expect": "INVALID_INPUT",
+   "expect_n_read": 1,
+   "status": "INVALID_INPUT",
+   "n_read": 1,
+   "e_value": null,
+   "reason": "nonfinite or unrepresentable value nan at 1",
+   "ok": true
+  },
+  {
+   "case": "Q07_string",
+   "expect": "INVALID_INPUT",
+   "expect_n_read": 1,
+   "status": "INVALID_INPUT",
+   "n_read": 1,
+   "e_value": null,
+   "reason": "non-numeric value '0.2' at 1",
+   "ok": true
+  },
+  {
+   "case": "Q08_bool",
+   "expect": "INVALID_INPUT",
+   "expect_n_read": 1,
+   "status": "INVALID_INPUT",
+   "n_read": 1,
+   "e_value": null,
+   "reason": "non-numeric value True at 1",
+   "ok": true
+  },
+  {
+   "case": "Q09_stream_ends_early",
+   "expect": "INCOMPLETE",
+   "expect_n_read": 5,
+   "status": "INCOMPLETE",
+   "n_read": 5,
+   "e_value": 7.59375,
+   "reason": "the stream ended after 5 of 20 values; no decision",
+   "ok": true
+  },
+  {
+   "case": "Q10_no_support",
+   "expect": "NO_JUSTIFIED_SUPPORT",
+   "expect_n_read": 0,
+   "status": "NO_JUSTIFIED_SUPPORT",
+   "n_read": 0,
+   "e_value": null,
+   "reason": "no support declared; the data cannot supply one",
+   "ok": true
+  },
+  {
+   "case": "Q11_no_basis",
+   "expect": "NO_JUSTIFIED_SUPPORT",
+   "expect_n_read": 0,
+   "status": "NO_JUSTIFIED_SUPPORT",
+   "n_read": 0,
+   "e_value": null,
+   "reason": "support declared without a recorded basis",
+   "ok": true
+  },
+  {
+   "case": "Q12_malformed_support",
+   "expect": "INVALID_SUPPORT",
+   "expect_n_read": 0,
+   "status": "INVALID_SUPPORT",
+   "n_read": 0,
+   "e_value": null,
+   "reason": "support must satisfy a < 0 < b",
+   "ok": true
+  },
+  {
+   "case": "Q13_asymmetric_n2",
+   "expect": "CONFIRMED",
+   "expect_n_read": 2,
+   "status": "CONFIRMED",
+   "n_read": 2,
+   "e_value": 25.990035545142863,
+   "reason": "E=25.99 >= 1/alpha=20 after 2 instances",
+   "ok": true
+  },
+  {
+   "case": "Q14_all_bottom",
+   "expect": "NOT_CONFIRMED",
+   "expect_n_read": 20,
+   "status": "NOT_CONFIRMED",
+   "n_read": 20,
+   "e_value": 9.5367431640625e-07,
+   "reason": "E=9.537e-07 < 1/alpha=20 after the budget of 20",
+   "ok": true
+  },
+  {
+   "case": "Q15_outside_after_stop",
+   "expect": "CONFIRMED",
+   "expect_n_read": 8,
+   "status": "CONFIRMED",
+   "n_read": 8,
+   "e_value": 25.62890625,
+   "reason": "E=25.63 >= 1/alpha=20 after 8 instances",
+   "ok": true
+  }
+ ],
+ "errors": [
+  {
+   "args": "{'budget': 0}",
+   "raised": "ValueError: budget must be an int >= 1, got 0",
+   "ok": true
+  },
+  {
+   "args": "{'budget': True}",
+   "raised": "ValueError: budget must be an int >= 1, got True",
+   "ok": true
+  },
+  {
+   "args": "{'budget': 8, 'alpha': 0.0}",
+   "raised": "ValueError: alpha must be a number in (0, 1), got 0.0",
+   "ok": true
+  }
+ ]
+}

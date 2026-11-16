@@ -1,0 +1,550 @@
+[
+ {
+  "case": "E01_single_positive",
+  "diffs": [
+   "0.3"
+  ],
+  "support": [
+   -1.0,
+   1.0
+  ],
+  "n_expected": 1,
+  "frozen_default": {
+   "confirmed": true,
+   "gate": "sign_only"
+  },
+  "frozen_declared": {
+   "confirmed": false,
+   "gate": "apriori_betting"
+  },
+  "strict": {
+   "status": "UNATTAINABLE",
+   "confirmed": false,
+   "e_value": 1.15,
+   "reason": "a band of 1 can reach at most E=1.5 < 1/alpha=20; no data could confirm"
+  }
+ },
+ {
+  "case": "E02_constant_positive_x5",
+  "diffs": [
+   "0.1",
+   "0.1",
+   "0.1",
+   "0.1",
+   "0.1"
+  ],
+  "support": [
+   -1.0,
+   1.0
+  ],
+  "n_expected": 5,
+  "frozen_default": {
+   "confirmed": true,
+   "gate": "sign_only"
+  },
+  "frozen_declared": {
+   "confirmed": false,
+   "gate": "apriori_betting"
+  },
+  "strict": {
+   "status": "UNATTAINABLE",
+   "confirmed": false,
+   "e_value": 1.2762815625000004,
+   "reason": "a band of 5 can reach at most E=7.594 < 1/alpha=20; no data could confirm"
+  }
+ },
+ {
+  "case": "E03_constant_top_x8",
+  "diffs": [
+   "1.0",
+   "1.0",
+   "1.0",
+   "1.0",
+   "1.0",
+   "1.0",
+   "1.0",
+   "1.0"
+  ],
+  "support": [
+   -1.0,
+   1.0
+  ],
+  "n_expected": 8,
+  "frozen_default": {
+   "confirmed": true,
+   "gate": "sign_only"
+  },
+  "frozen_declared": {
+   "confirmed": true,
+   "gate": "apriori_betting"
+  },
+  "strict": {
+   "status": "CONFIRMED",
+   "confirmed": true,
+   "e_value": 25.62890625,
+   "reason": "E=25.63 >= 1/alpha=20"
+  }
+ },
+ {
+  "case": "E04_single_outside_support",
+  "diffs": [
+   "2.0"
+  ],
+  "support": [
+   -1.0,
+   1.0
+  ],
+  "n_expected": 1,
+  "frozen_default": {
+   "confirmed": true,
+   "gate": "sign_only"
+  },
+  "frozen_declared": {
+   "confirmed": true,
+   "gate": "sign_only_support_violation"
+  },
+  "strict": {
+   "status": "INVALID_INPUT",
+   "confirmed": false,
+   "e_value": null,
+   "reason": "value 2.0 outside the declared support [-1.0, 1.0]"
+  }
+ },
+ {
+  "case": "E05_varying_one_outside_support",
+  "diffs": [
+   "0.5",
+   "2.0",
+   "0.7"
+  ],
+  "support": [
+   -1.0,
+   1.0
+  ],
+  "n_expected": 3,
+  "frozen_default": {
+   "confirmed": true,
+   "gate": "eprocess_underpowered_n3"
+  },
+  "frozen_declared": {
+   "confirmed": true,
+   "gate": "eprocess_underpowered_n3"
+  },
+  "strict": {
+   "status": "INVALID_INPUT",
+   "confirmed": false,
+   "e_value": null,
+   "reason": "value 2.0 outside the declared support [-1.0, 1.0]"
+  }
+ },
+ {
+  "case": "E06_malformed_support_0_1_constant",
+  "diffs": [
+   "0.2",
+   "0.2",
+   "0.2"
+  ],
+  "support": [
+   0.0,
+   1.0
+  ],
+  "n_expected": 3,
+  "frozen_default": {
+   "confirmed": true,
+   "gate": "sign_only"
+  },
+  "frozen_declared": {
+   "confirmed": true,
+   "gate": "sign_only_support_violation"
+  },
+  "strict": {
+   "status": "INVALID_SUPPORT",
+   "confirmed": false,
+   "e_value": null,
+   "reason": "support must satisfy a < 0 < b"
+  }
+ },
+ {
+  "case": "E07_single_pos_inf",
+  "diffs": [
+   "inf"
+  ],
+  "support": [
+   -1.0,
+   1.0
+  ],
+  "n_expected": 1,
+  "frozen_default": {
+   "confirmed": true,
+   "gate": "sign_only"
+  },
+  "frozen_declared": {
+   "confirmed": true,
+   "gate": "sign_only_support_violation"
+  },
+  "strict": {
+   "status": "INVALID_INPUT",
+   "confirmed": false,
+   "e_value": null,
+   "reason": "nonfinite or unrepresentable value inf"
+  }
+ },
+ {
+  "case": "E08_two_pos_inf",
+  "diffs": [
+   "inf",
+   "inf"
+  ],
+  "support": [
+   -1.0,
+   1.0
+  ],
+  "n_expected": 2,
+  "frozen_default": {
+   "confirmed": true,
+   "gate": "sign_only"
+  },
+  "frozen_declared": {
+   "confirmed": true,
+   "gate": "sign_only_support_violation"
+  },
+  "strict": {
+   "status": "INVALID_INPUT",
+   "confirmed": false,
+   "e_value": null,
+   "reason": "nonfinite or unrepresentable value inf"
+  }
+ },
+ {
+  "case": "E09_single_nan",
+  "diffs": [
+   "nan"
+  ],
+  "support": [
+   -1.0,
+   1.0
+  ],
+  "n_expected": 1,
+  "frozen_default": {
+   "confirmed": false,
+   "gate": "sign_only"
+  },
+  "frozen_declared": {
+   "confirmed": false,
+   "gate": "sign_only_support_violation"
+  },
+  "strict": {
+   "status": "INVALID_INPUT",
+   "confirmed": false,
+   "e_value": null,
+   "reason": "nonfinite or unrepresentable value nan"
+  }
+ },
+ {
+  "case": "E10_pos_inf_among_finite",
+  "diffs": [
+   "inf",
+   "0.2",
+   "0.3"
+  ],
+  "support": [
+   -1.0,
+   1.0
+  ],
+  "n_expected": 3,
+  "frozen_default": {
+   "confirmed": false,
+   "gate": "eprocess_underpowered_n3"
+  },
+  "frozen_declared": {
+   "confirmed": false,
+   "gate": "eprocess_underpowered_n3"
+  },
+  "strict": {
+   "status": "INVALID_INPUT",
+   "confirmed": false,
+   "e_value": null,
+   "reason": "nonfinite or unrepresentable value inf"
+  }
+ },
+ {
+  "case": "E11_neg_inf_among_finite",
+  "diffs": [
+   "-inf",
+   "0.2",
+   "0.3"
+  ],
+  "support": [
+   -1.0,
+   1.0
+  ],
+  "n_expected": 3,
+  "frozen_default": {
+   "confirmed": false,
+   "gate": "eprocess_underpowered_n3"
+  },
+  "frozen_declared": {
+   "confirmed": false,
+   "gate": "eprocess_underpowered_n3"
+  },
+  "strict": {
+   "status": "INVALID_INPUT",
+   "confirmed": false,
+   "e_value": null,
+   "reason": "nonfinite or unrepresentable value -inf"
+  }
+ },
+ {
+  "case": "E12_empty",
+  "diffs": [],
+  "support": [
+   -1.0,
+   1.0
+  ],
+  "n_expected": 0,
+  "frozen_default": {
+   "confirmed": false,
+   "gate": null
+  },
+  "frozen_declared": {
+   "confirmed": false,
+   "gate": null
+  },
+  "strict": {
+   "status": "EMPTY",
+   "confirmed": false,
+   "e_value": null,
+   "reason": "no observations"
+  }
+ },
+ {
+  "case": "E13_all_positive_small_n5",
+  "diffs": [
+   "0.01",
+   "0.02",
+   "0.015",
+   "0.03",
+   "0.012"
+  ],
+  "support": [
+   -1.0,
+   1.0
+  ],
+  "n_expected": 5,
+  "frozen_default": {
+   "confirmed": true,
+   "gate": "eprocess"
+  },
+  "frozen_declared": {
+   "confirmed": false,
+   "gate": "apriori_betting"
+  },
+  "strict": {
+   "status": "UNATTAINABLE",
+   "confirmed": false,
+   "e_value": 1.04423083503375,
+   "reason": "a band of 5 can reach at most E=7.594 < 1/alpha=20; no data could confirm"
+  }
+ },
+ {
+  "case": "E14_failed_observation_marker",
+  "diffs": [
+   "0.2",
+   "None",
+   "0.3",
+   "0.25",
+   "0.4"
+  ],
+  "support": [
+   -1.0,
+   1.0
+  ],
+  "n_expected": 5,
+  "frozen_default": {
+   "confirmed": true,
+   "gate": "eprocess_underpowered_n4"
+  },
+  "frozen_declared": {
+   "confirmed": false,
+   "gate": "apriori_betting"
+  },
+  "strict": {
+   "status": "INCOMPLETE",
+   "confirmed": false,
+   "e_value": 1.7077499999999999,
+   "reason": "4 usable of 5 expected (1 failed); no decision on a partial band"
+  }
+ },
+ {
+  "case": "E15_shrunken_band_4_of_5",
+  "diffs": [
+   "0.2",
+   "0.3",
+   "0.25",
+   "0.4"
+  ],
+  "support": [
+   -1.0,
+   1.0
+  ],
+  "n_expected": 5,
+  "frozen_default": {
+   "confirmed": true,
+   "gate": "eprocess_underpowered_n4"
+  },
+  "frozen_declared": {
+   "confirmed": false,
+   "gate": "apriori_betting"
+  },
+  "strict": {
+   "status": "INCOMPLETE",
+   "confirmed": false,
+   "e_value": 1.7077499999999999,
+   "reason": "4 usable of 5 expected (0 failed); no decision on a partial band"
+  }
+ },
+ {
+  "case": "E16_no_support_declared",
+  "diffs": [
+   "0.01",
+   "0.02",
+   "0.015",
+   "0.03",
+   "0.012"
+  ],
+  "support": null,
+  "n_expected": 5,
+  "frozen_default": {
+   "confirmed": true,
+   "gate": "eprocess"
+  },
+  "frozen_declared": {
+   "confirmed": true,
+   "gate": "eprocess"
+  },
+  "strict": {
+   "status": "NO_JUSTIFIED_SUPPORT",
+   "confirmed": false,
+   "e_value": null,
+   "reason": "no support declared; the data cannot supply one"
+  }
+ },
+ {
+  "case": "E17_support_without_basis",
+  "diffs": [
+   "0.01",
+   "0.02",
+   "0.015",
+   "0.03",
+   "0.012"
+  ],
+  "support": [
+   -1.0,
+   1.0
+  ],
+  "n_expected": 5,
+  "frozen_default": {
+   "confirmed": true,
+   "gate": "eprocess"
+  },
+  "frozen_declared": {
+   "confirmed": false,
+   "gate": "apriori_betting"
+  },
+  "strict": {
+   "status": "NO_JUSTIFIED_SUPPORT",
+   "confirmed": false,
+   "e_value": null,
+   "reason": "support declared without a recorded basis"
+  }
+ },
+ {
+  "case": "E18_non_numeric_and_bool",
+  "diffs": [
+   "True",
+   "'0.2'",
+   "0.3"
+  ],
+  "support": [
+   -1.0,
+   1.0
+  ],
+  "n_expected": 3,
+  "strict": {
+   "status": "INVALID_INPUT",
+   "confirmed": false,
+   "e_value": null,
+   "reason": "non-numeric value True"
+  }
+ },
+ {
+  "case": "E19_constant_top_x20",
+  "diffs": [
+   "1.0",
+   "1.0",
+   "1.0",
+   "1.0",
+   "1.0",
+   "1.0",
+   "1.0",
+   "1.0",
+   "1.0",
+   "1.0",
+   "1.0",
+   "1.0",
+   "1.0",
+   "1.0",
+   "1.0",
+   "1.0",
+   "1.0",
+   "1.0",
+   "1.0",
+   "1.0"
+  ],
+  "support": [
+   -1.0,
+   1.0
+  ],
+  "n_expected": 20,
+  "frozen_default": {
+   "confirmed": true,
+   "gate": "sign_only"
+  },
+  "frozen_declared": {
+   "confirmed": true,
+   "gate": "apriori_betting"
+  },
+  "strict": {
+   "status": "CONFIRMED",
+   "confirmed": true,
+   "e_value": 3325.256730079651,
+   "reason": "E=3325 >= 1/alpha=20"
+  }
+ },
+ {
+  "case": "E20_asymmetric_support_n2",
+  "diffs": [
+   "1.0",
+   "1.0"
+  ],
+  "support": [
+   -0.1,
+   1.0
+  ],
+  "n_expected": 2,
+  "frozen_default": {
+   "confirmed": true,
+   "gate": "sign_only"
+  },
+  "frozen_declared": {
+   "confirmed": true,
+   "gate": "apriori_betting"
+  },
+  "strict": {
+   "status": "CONFIRMED",
+   "confirmed": true,
+   "e_value": 25.990035545142863,
+   "reason": "E=25.99 >= 1/alpha=20"
+  }
+ }
+]

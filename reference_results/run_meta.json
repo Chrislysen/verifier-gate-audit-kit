@@ -1,0 +1,101 @@
+{
+ "protocol_sha256": "fd1f05b7dc3aadd2954c5101db55f07d0bdb50b47cf2d5de55baf30062209876",
+ "strict_sha256": "37240b412c46f65913efca0a0cd254c40cc5c271ac365130b37dd9160911133a",
+ "strict_contract": "paper236-strict-gate-1.0",
+ "frozen_commit": "0cd5df96",
+ "frozen_sha256": {
+  "evals/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "evals/significance.py": "1ba96ebcbb8b7b9616dce9a4e1613c0e5ff8b8bb424a3b4d79e36a2796e8dd1f",
+  "evals/winners_curse.py": "8c5cdd77e02c4ddd379a1c99d1775a21383a26bf71494517374ceaa682d1b1a0"
+ },
+ "python": "3.14.2",
+ "platform": "Windows-11-10.0.26300-SP0",
+ "stub_probes": [
+  {
+   "dist": "gauss0",
+   "n": 5,
+   "cfg": "frozen_default",
+   "bands": 100,
+   "identical": true
+  },
+  {
+   "dist": "gauss0",
+   "n": 5,
+   "cfg": "frozen_minN_auto",
+   "bands": 100,
+   "identical": true
+  },
+  {
+   "dist": "gauss0",
+   "n": 5,
+   "cfg": "frozen_declared",
+   "bands": 100,
+   "identical": true
+  },
+  {
+   "dist": "skew0",
+   "n": 8,
+   "cfg": "frozen_default",
+   "bands": 100,
+   "identical": true
+  },
+  {
+   "dist": "skew0",
+   "n": 8,
+   "cfg": "frozen_minN_auto",
+   "bands": 100,
+   "identical": true
+  },
+  {
+   "dist": "skew0",
+   "n": 8,
+   "cfg": "frozen_declared",
+   "bands": 100,
+   "identical": true
+  },
+  {
+   "dist": "unif+0.25",
+   "n": 12,
+   "cfg": "frozen_default",
+   "bands": 100,
+   "identical": true
+  },
+  {
+   "dist": "unif+0.25",
+   "n": 12,
+   "cfg": "frozen_minN_auto",
+   "bands": 100,
+   "identical": true
+  },
+  {
+   "dist": "unif+0.25",
+   "n": 12,
+   "cfg": "frozen_declared",
+   "bands": 100,
+   "identical": true
+  },
+  {
+   "dist": "gauss+0.5",
+   "n": 20,
+   "cfg": "frozen_default",
+   "bands": 100,
+   "identical": true
+  },
+  {
+   "dist": "gauss+0.5",
+   "n": 20,
+   "cfg": "frozen_minN_auto",
+   "bands": 100,
+   "identical": true
+  },
+  {
+   "dist": "gauss+0.5",
+   "n": 20,
+   "cfg": "frozen_declared",
+   "bands": 100,
+   "identical": true
+  }
+ ],
+ "started": "2026-11-15T20:51:41+0100",
+ "seconds": 332.9
+}

@@ -1,0 +1,44 @@
+name: reproduce
+
+# Reruns everything the README documents, on a clean machine, and compares it with reference_results/.
+# compare_to_reference.py and compare_sequential.py exit non-zero unless every outcome matches.
+# It runs on demand only (Actions tab, "Run workflow"); in a fork it runs on the fork owner's account.
+# It has not run in this repository: the results in PROVENANCE.md are from the author's machine.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  reproduce:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ["3.12", "3.14"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Checksums
+        run: python -I -S -c "import hashlib,sys; bad=[l.split()[1] for l in open('SHA256SUMS.txt',encoding='utf-8') if l.strip() and hashlib.sha256(open(l.split()[1],'rb').read()).hexdigest()!=l.split()[0]]; print('mismatches:', bad); sys.exit(1 if bad else 0)"
+      - name: Tests
+        run: python -I -S -m unittest discover -s tests -v
+      - name: The kit's gates against values recorded from the evaluated gate files
+        run: python -I -S evaluated_values.py
+      - name: Full protocol (120 cells) against the reference run
+        run: |
+          python -I -S run_protocol.py
+          python -I -S compare_to_reference.py
+          python -I -S summarize.py --protocol protocol.json --raw results --table7 reference_results/table7_calibration_results.json
+      - name: Sequential protocol (72 cells) against the reference run
+        run: |
+          python -I -S run_sequential.py --base protocol.json --protocol protocol_sequential.json --sequential sequential_mean_gate.py --strict strict_mean_gate.py --out results_sequential
+          python -I -S compare_sequential.py
+          python -I -S summarize_sequential.py --base protocol.json --protocol protocol_sequential.json --raw results_sequential
+      - name: The paper's tables from this run
+        run: |
+          python -I -S make_paper_assets.py --summary results/summary.json --out results
+          python -I -S make_sequential_table.py results_sequential/summary_sequential.json results_sequential/sequential_table.tex

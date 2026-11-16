@@ -1,0 +1,46 @@
+{
+  "protocol": "paper236-sequential-gate-comparison",
+  "version": "1.0",
+  "written": "2026-11-15, before the sequential gate was implemented and before any result",
+  "alpha": 0.05,
+  "gates": {
+    "sequential": {"code": "evals/sequential_mean_gate.py (contract paper236-sequential-gate-1.0)", "call": "sequential_mean_gate(iter(stream), support=SUPPORT, support_basis='synthetic generator support', alpha=0.05, budget=N)"},
+    "fixed": {"code": "evals/strict_mean_gate.py (contract paper236-strict-gate-1.0, unchanged, sha256 37240b41...)", "call": "strict_mean_gate(stream[:N], support=SUPPORT, support_basis='synthetic generator support', alpha=0.05, n_expected=N)"}
+  },
+  "distributions": "the twelve distributions of protocol.json (paper236-strict-gate-comparison 1.0): the same draw strings, means, supports and roles",
+  "dist_order": ["gauss0", "unif0", "skew0", "skewc0", "unif+0.5", "gauss+0.5", "gauss+1.0", "rademacher", "skew_mild", "unif+0.25", "skew+0.08", "beta+0.2"],
+  "budgets": [8, 12, 20, 50, 100, 200],
+  "streams_per_distribution": 10000,
+  "stream_length": 200,
+  "seed_rule": "seed = 20261116 + 10*dist_order.index(dist); rng = random.Random(seed); the 10,000 streams of 200 values are drawn in sequence, element by element. Every stream is fed to the sequential gate at every budget and its first N values to the fixed gate at every budget.",
+  "edge_cases": {
+    "Q01_budget7_symmetric": {"stream": "8 x 1.0", "budget": 7, "expect": "UNATTAINABLE", "n_read": 0},
+    "Q02_top_x8_budget8": {"stream": "8 x 1.0", "budget": 8, "expect": "CONFIRMED", "n_read": 8},
+    "Q03_stops_before_unread_tail": {"stream": "8 x 1.0, then an item whose read raises", "budget": 20, "expect": "CONFIRMED", "n_read": 8},
+    "Q04_failure_at_2": {"stream": [0.5, null, 0.5], "budget": 20, "expect": "INCOMPLETE", "n_read": 2},
+    "Q05_outside_support_at_2": {"stream": [0.5, 2.0, 0.5], "budget": 20, "expect": "INVALID_INPUT", "n_read": 2},
+    "Q06_nan_first": {"stream": ["nan"], "budget": 20, "expect": "INVALID_INPUT", "n_read": 1},
+    "Q07_string": {"stream": ["0.2"], "budget": 20, "expect": "INVALID_INPUT", "n_read": 1},
+    "Q08_bool": {"stream": [true], "budget": 20, "expect": "INVALID_INPUT", "n_read": 1},
+    "Q09_stream_ends_early": {"stream": "5 x 1.0", "budget": 20, "expect": "INCOMPLETE", "n_read": 5},
+    "Q10_no_support": {"stream": "8 x 1.0", "budget": 20, "support": null, "expect": "NO_JUSTIFIED_SUPPORT", "n_read": 0},
+    "Q11_no_basis": {"stream": "8 x 1.0", "budget": 20, "support_basis": "", "expect": "NO_JUSTIFIED_SUPPORT", "n_read": 0},
+    "Q12_malformed_support": {"stream": "8 x 1.0", "budget": 20, "support": [0.0, 1.0], "expect": "INVALID_SUPPORT", "n_read": 0},
+    "Q13_asymmetric_n2": {"stream": [1.0, 1.0], "budget": 2, "support": [-0.1, 1.0], "expect": "CONFIRMED", "n_read": 2},
+    "Q14_all_bottom": {"stream": "20 x -1.0", "budget": 20, "expect": "NOT_CONFIRMED", "n_read": 20},
+    "Q15_outside_after_stop": {"stream": "8 x 1.0, then 5.0", "budget": 20, "expect": "CONFIRMED", "n_read": 8}
+  },
+  "edge_cases_support": [-1.0, 1.0],
+  "criteria": {
+    "S1_validity": "In every bounded null cell (unif0, skew0, skewc0, rademacher, skew_mild; every budget), the sequential gate's CONFIRMED count k of 10,000 has a Wilson 95% lower bound <= 0.05. A violation in any cell means the sequential gate is reported as invalid.",
+    "S2_gaussian_null": "In every gauss0 cell, the same, counting INVALID_INPUT as not confirmed; INVALID_INPUT reported separately.",
+    "S3_capacity": "No run is CONFIRMED with n_read <= 7 (all supports here are symmetric).",
+    "S4_dominance": "For every stream and budget, a CONFIRMED fixed gate implies a CONFIRMED sequential gate; and every sequential confirmation at t equals a CONFIRMED fixed gate on the first t values (n_expected = t).",
+    "S5_evalue": "At every stop with valid values (CONFIRMED at t, or NOT_CONFIRMED at N), the sequential e-value equals the fixed gate's e-value on the same prefix (relative difference <= 1e-12).",
+    "S6_edge_cases": "Every edge case returns its expected status and n_read; ValueError for budget 0, budget True and alpha 0.",
+    "power_reporting": "Descriptive. The paper may say the sequential gate has power in a cell only where the Wilson 95% lower bound of its confirmation rate is >= 0.5.",
+    "cost_reporting": "Per cell: mean instances read (all runs), and the median and 90th percentile of the stopping index among confirmations; the fixed gate's confirmation rate at n = N on the same streams alongside."
+  },
+  "run_rule": "One run of the whole protocol. No change to c, the threshold, the supports, the distributions, the budgets, the streams or their number after results are seen. A bug fix after results goes into 'amendments' and every cell is rerun.",
+  "amendments": []
+}
